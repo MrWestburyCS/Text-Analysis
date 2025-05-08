@@ -28,7 +28,7 @@ This project is a web application that analyzes input text to identify figures o
 
 1.  **Clone the Repository (Optional, if you haven't already):**
     ```bash
-    git clone <your-repository-url>
+    git clone https://github.com/MrWestburyCS/Text-Analysis
     cd <repository-directory>
     ```
 
