@@ -70,8 +70,6 @@ openapi_schema = {
     }
 }
 
-# --- UPDATED: spaCy POS Tagging Function ---
-# Map spaCy POS tags to descriptive lowercase strings
 POS_TAG_MAP = {
     "ADJ": "adjective", "ADP": "adposition", "ADV": "adverb", "AUX": "auxiliary",
     "CONJ": "conjunction", "CCONJ": "coord_conjunction", "DET": "determiner",
@@ -101,11 +99,10 @@ def find_parts_of_speech(text):
     pos_results = []
 
     for token in doc:
-        # Use the mapped name if available, otherwise use the raw tag
-        # Filter out space tokens unless specifically needed
+
         pos_tag = token.pos_
         if pos_tag != "SPACE": # Usually don't need to highlight spaces
-             pos_type = POS_TAG_MAP.get(pos_tag, pos_tag.lower()) # Map to readable name
+             pos_type = POS_TAG_MAP.get(pos_tag, pos_tag.lower()) 
              pos_results.append({"type": pos_type, "text": token.text})
 
     logging.info(f"spaCy found {len(pos_results)} tagged tokens.")
@@ -122,9 +119,8 @@ def index():
     # Remove 'space' if it was accidentally included
     if 'space' in tag_types: tag_types.remove('space')
 
-    return render_template('index.html', tag_types=tag_types)
+    return render_template('FrontEndAccess.html', tag_types=tag_types)
 
-# --- analyze_text endpoint (mostly unchanged logic, just calls updated find_parts_of_speech) ---
 @app.route('/analyze', methods=['POST'])
 def analyze_text():
     """
@@ -166,14 +162,11 @@ Text to analyze:\n---\n{input_text}\n---\nJSON List:"""
     }
     try:
         response = model.generate_content(prompt, generation_config=json_generation_config)
-        # (Keep existing Gemini response handling and validation logic...)
-        # ... on success, populate analysis_results["figures_of_speech"]
-        # ... on failure, set gemini_error and add to analysis_results["errors"]
-        # --- Start of Gemini Handling (Simplified for brevity) ---
+
         if response.prompt_feedback and response.prompt_feedback.block_reason:
              gemini_error = f"Figure of speech analysis blocked ({response.prompt_feedback.block_reason})."
         elif not hasattr(response, 'text') or not response.text:
-             gemini_error = "Figure of speech analysis returned empty response." # Add more detail based on finish_reason if needed
+             gemini_error = "Figure of speech analysis returned empty response." 
         else:
             try:
                 raw_parsed_data = json.loads(response.text)
@@ -196,7 +189,6 @@ Text to analyze:\n---\n{input_text}\n---\nJSON List:"""
 
         if gemini_error:
             analysis_results["errors"].append(gemini_error)
-        # --- End of Gemini Handling ---
 
     except Exception as e:
         logging.error(f"Error calling Gemini API: {e}")
@@ -206,7 +198,6 @@ Text to analyze:\n---\n{input_text}\n---\nJSON List:"""
     return jsonify(analysis_results)
 
 
-# --- Run the App ---
 if __name__ == '__main__':
     if nlp is None:
         print("spaCy model 'en_core_web_sm' not found. Please install it.")

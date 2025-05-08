@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Text Analyzer</title>
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Text Analyzer</h1>
+      <p class="app-description">
+        Enter text below to identify metaphors, similes, and parts of speech in your writing.
+      </p>
+
+      <div class="analysis-container">
+        <!-- Input Column -->
+        <div class="input-column">
+          <div class="column-header">
+            <h2>Input Text</h2>
+          </div>
+          
+          <textarea
+            id="inputText"
+            rows="10"
+            placeholder="Paste your text here..."
+          ></textarea>
+          
+          <div class="button-row">
+            <button id="analyzeButton">Analyze Text</button>
+            <button id="clearButton" class="secondary">Clear</button>
+            <button id="sampleButton" class="sample-button">Sample Text</button>
+          </div>
+          
+          <div id="loadingIndicator" style="display: none">
+            <div class="spinner"></div>
+            <span>Analyzing...</span>
+          </div>
+          
+          <div id="errorDisplay" class="error-message" style="display: none"></div>
+
+          <!-- Filter Controls (Collapsible) -->
+          <div class="filter-controls">
+            <div class="filter-header" id="filterToggle">
+              <h3>Highlight Filters</h3>
+              <span class="filter-toggle">▼</span>
+            </div>
+            
+            <div id="checkboxContainer" class="checkbox-grid">
+              {% if tag_types %}
+                {% for tag in tag_types %}
+                <div class="checkbox-item">
+                  <input
+                    type="checkbox"
+                    id="check-{{ tag }}"
+                    name="filter"
+                    value="{{ tag }}"
+                    {% if tag == 'metaphor' or tag == 'simile' %}checked{% endif %}
+                  />
+                  <label for="check-{{ tag }}" class="tag-label tag-{{ tag }}">
+                    {{ tag.replace('_', ' ') | title }}
+                  </label>
+                </div>
+                {% endfor %}
+              {% else %}
+                <p>Could not load filter types.</p>
+              {% endif %}
+            </div>
+            
+          </div>
+        </div>
+
+        <!-- Results Column -->
+        <div class="results-column">
+          <div class="column-header">
+            <h2>Analysis Results</h2>
+          </div>
+          
+          <div id="resultsOutput" class="results-box">
+            <p>Analysis results will appear here.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="/static/Analysis.js"></script>
+  </body>
+</html>
