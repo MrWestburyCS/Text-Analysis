@@ -25,7 +25,6 @@ document.addEventListener("DOMContentLoaded", () => {
     // console.log("Filter state updated:", currentFilterState); // For debugging
   }
 
-  // --- Analyze Button Click Handler ---
   analyzeButton.addEventListener("click", async () => {
     const textToAnalyze = inputText.value;
     if (!textToAnalyze.trim()) {
@@ -108,7 +107,6 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
 
-  // --- UPDATED Highlighting Function ---
   function applyHighlighting() {
       if (!currentAnalysisData) {
           resultsOutput.innerHTML = "<p>No analysis data available to display.</p>";
@@ -119,8 +117,7 @@ document.addEventListener("DOMContentLoaded", () => {
       let highlightedHtml = escapeHtml(originalText);
       let itemsHighlighted = 0;
 
-      // Sort findings by length descending (important for correct replacement)
-      // Create a copy before sorting to not modify the original stored data
+
       const sortedFindings = [...findings].sort((a, b) => b.text.length - a.text.length);
 
       sortedFindings.forEach((finding) => {
@@ -160,7 +157,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
       resultsOutput.innerHTML = highlightedHtml;
 
-      // Optional: Add a message if filters resulted in nothing shown
       if (itemsHighlighted === 0 && findings.length > 0) {
           resultsOutput.innerHTML += "<p><small>(No items visible with current filters)</small></p>";
       } else if (itemsHighlighted === 0 && findings.length === 0) {
@@ -169,8 +165,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 
-  // --- Utility functions (showError, hideError, escapeHtml, escapeRegExp) ---
-  // (Keep these as they were)
+
   function showError(message) {
     if (errorDisplay.style.display === 'block' && errorDisplay.textContent) {
         errorDisplay.textContent += ` | ${message}`;
@@ -199,22 +194,18 @@ document.addEventListener("DOMContentLoaded", () => {
     return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   }
 
-  // --- Initial setup ---
-  updateFilterState(); // Initialize filter state on page load
+  updateFilterState(); 
 
-  // Clear button functionality
   clearButton.addEventListener("click", () => {
     inputText.value = "";
     resultsOutput.innerHTML = "<p>Analysis results will appear here.</p>";
     hideError();
   });
   
-  // Sample text button functionality
   sampleButton.addEventListener("click", () => {
     inputText.value = "The old man was as stubborn as a mule. His heart was made of stone, but his words flowed like honey. The bright sun painted the sky with brilliant colors, while the trees danced in the gentle breeze. Life is a journey that takes unexpected turns.";
   });
   
-  // Collapsible filter section
   let filtersCollapsed = false;
   filterToggle.addEventListener("click", () => {
     filtersCollapsed = !filtersCollapsed;
