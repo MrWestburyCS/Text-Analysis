@@ -1,0 +1,452 @@
+body {
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  line-height: 1.6;
+  margin: 0;
+  padding: 20px;
+  background-color: #f7f9fc;
+  color: #333;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 25px;
+  background-color: #ffffff;
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+  border-radius: 10px;
+}
+  
+h1 {
+  color: #2c3e50;
+  text-align: center;
+  margin-bottom: 15px;
+  font-weight: 600;
+  font-size: 2.2rem;
+}
+
+h2 {
+  color: #2c3e50;
+  margin-bottom: 15px;
+  font-weight: 500;
+  font-size: 1.5rem;
+}
+
+.app-description {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #555;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.analysis-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 25px;
+  margin-bottom: 20px;
+}
+
+.input-column, .results-column {
+  flex: 1;
+  min-width: 300px;
+}
+
+.column-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.column-header h2 {
+  margin: 0;
+}
+
+textarea {
+  width: 100%;
+  padding: 15px;
+  margin-bottom: 15px;
+  border: 1px solid #dde5ed;
+  border-radius: 6px;
+  box-sizing: border-box;
+  font-size: 1rem;
+  resize: vertical;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: border-color 0.2s ease;
+  min-height: 250px;
+}
+
+textarea:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+}
+
+.button-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+button {
+  padding: 12px 20px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+  font-weight: 500;
+  flex: 1;
+}
+button:hover {
+  background-color: #2980b9;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+#clearButton {
+  background-color: #e9ecef;
+  color: #495057;
+}
+
+#clearButton:hover {
+  background-color: #dee2e6;
+}
+
+
+#loadingIndicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: #7f8c8d;
+  margin-bottom: 15px;
+}
+
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+.results-box {
+  padding: 20px;
+  background-color: #f8fafc;
+  border: 1px solid #dde5ed;
+  border-radius: 6px;
+  min-height: 250px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-y: auto;
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.error-message {
+  color: #e74c3c;
+  background-color: #fbeaea;
+  border: 1px solid #e74c3c;
+  padding: 12px;
+  border-radius: 6px;
+  margin-bottom: 15px;
+  text-align: center;
+}
+  /* Highlighting Styles */
+  .adjective {
+    background-color: #a9dfbf; /* Light green */
+    padding: 0.1em 0.2em;
+    border-radius: 3px;
+    font-weight: normal; /* Or style as desired */
+    cursor: help;
+    position: relative;
+  }
+  
+  .adverb {
+    background-color: #f5b7b1; /* Light red/pink */
+    padding: 0.1em 0.2em;
+    border-radius: 3px;
+    font-style: normal; /* Or style as desired */
+    text-decoration: underline; /* Example style */
+    text-decoration-style: dotted;
+    cursor: help;
+    position: relative;
+  }
+  
+  /* Optional: Update tooltip styles if needed */
+  .adjective::after,
+  .adverb::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.75);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.8em;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s, visibility 0.2s;
+    z-index: 10;
+    margin-bottom: 5px;
+  }
+/* Filter Controls Redesign */
+.filter-controls {
+  margin-bottom: 15px;
+  padding: 15px;
+  background-color: #f8fafc;
+  border: 1px solid #dde5ed;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.filter-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.filter-header h3 {
+  margin: 0;
+  font-weight: 500;
+  color: #4a5568;
+  font-size: 1.1rem;
+}
+
+.filter-toggle {
+  font-size: 1.2rem;
+  transition: transform 0.3s ease;
+}
+
+.filter-toggle.collapsed {
+  transform: rotate(-90deg);
+}
+.checkbox-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 8px;
+  margin-top: 10px;
+  max-height: 300px;
+  overflow-y: auto;
+  transition: max-height 0.3s ease;
+}
+
+.checkbox-grid.collapsed {
+  max-height: 0;
+  overflow: hidden;
+  margin-top: 0;
+}
+
+.checkbox-item {
+  display: flex;
+  align-items: center;
+}
+
+.checkbox-item input[type="checkbox"] {
+  margin-right: 8px;
+  cursor: pointer;
+  width: 16px;
+  height: 16px;
+}
+
+.checkbox-item label {
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.9em;
+  border: 1px solid transparent;
+  display: inline-block;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: calc(100% - 24px);
+}
+  /* --- Existing Highlight Styles --- */
+  .metaphor { background-color: #f9e79f; padding: 0.1em 0.2em; border-radius: 3px; font-weight: bold; cursor: help; position: relative; }
+  .simile { background-color: #aed6f1; padding: 0.1em 0.2em; border-radius: 3px; font-style: italic; cursor: help; position: relative; }
+  
+  /* --- NEW: POS Tag Highlight Styles --- */
+  /* Add distinct colors - choose carefully for readability! */
+  .adjective { background-color: #a9dfbf; } /* Light green */
+  .adposition { background-color: #f5cba7; } /* Light orange */
+  .adverb { background-color: #f5b7b1; } /* Light red/pink */
+  .auxiliary { background-color: #d2b4de; } /* Light purple */
+  .conjunction { background-color: #aed6f1; } /* Light blue (same as simile?) */
+  .coord_conjunction { background-color: #aed6f1; border-bottom: 1px dotted #5499c7; } /* Light blue dotted */
+  .determiner { background-color: #abb2b9; color: #fff;} /* Grey */
+  .interjection { background-color: #fad7a0; font-weight: bold; } /* Light yellow-orange bold */
+  .noun { background-color: #fcf3cf; } /* Very light yellow */
+  .numeral { background-color: #e5e7e9; text-decoration: underline; } /* Light grey underline */
+  .particle { background-color: #d5dbdb; border: 1px dashed #808b8d; } /* Grey dashed border */
+  .pronoun { background-color: #fdebd0; } /* Light peach */
+  .proper_noun { background-color: #fcf3cf; font-weight: bold; } /* Very light yellow bold */
+  .punctuation { /* Maybe don't highlight punctuation? Or subtle grey */ color: #999; }
+  .subord_conjunction { background-color: #aed6f1; border-bottom: 1px solid #5499c7; } /* Light blue solid underline */
+  .symbol { background-color: #e8daef; border: 1px solid #8e44ad; } /* Purple border */
+  .verb { background-color: #d6eaf8; } /* Very light blue */
+  .other { background-color: #fadbd8; border: 1px dotted red; } /* Light pink dotted red border */
+  
+  /* Apply base styles to all tags for consistency */
+  .metaphor, .simile, .adjective, .adposition, .adverb, .auxiliary,
+  .conjunction, .coord_conjunction, .determiner, .interjection, .noun,
+  .numeral, .particle, .pronoun, .proper_noun, .punctuation,
+  .subord_conjunction, .symbol, .verb, .other {
+    padding: 0.1em 0.2em;
+    border-radius: 3px;
+    cursor: help;
+    position: relative; /* Needed for tooltips */
+    line-height: 1.5; /* Prevent highlights overlapping lines */
+    margin: 0 1px; /* Tiny space between adjacent highlights */
+  }
+  
+  /* Style checkbox labels to match highlight colors */
+  .tag-label { border: 1px solid #ccc; } /* Default border */
+  .tag-metaphor { background-color: #f9e79f; }
+  .tag-simile { background-color: #aed6f1; }
+  .tag-adjective { background-color: #a9dfbf; }
+  .tag-adposition { background-color: #f5cba7; }
+  .tag-adverb { background-color: #f5b7b1; }
+  .tag-auxiliary { background-color: #d2b4de; }
+  .tag-conjunction { background-color: #aed6f1; }
+  .tag-coord_conjunction { background-color: #aed6f1; }
+  .tag-determiner { background-color: #abb2b9; color: #fff; }
+  .tag-interjection { background-color: #fad7a0; }
+  .tag-noun { background-color: #fcf3cf; }
+  .tag-numeral { background-color: #e5e7e9; }
+  .tag-particle { background-color: #d5dbdb; }
+  .tag-pronoun { background-color: #fdebd0; }
+  .tag-proper_noun { background-color: #fcf3cf; }
+  .tag-punctuation { color: #999; border-color: #999; }
+  .tag-subord_conjunction { background-color: #aed6f1; }
+  .tag-symbol { background-color: #e8daef; }
+  .tag-verb { background-color: #d6eaf8; }
+  .tag-other { background-color: #fadbd8; }
+  
+  
+  /* Tooltip Styles (Apply to all tags) */
+  .metaphor::after, .simile::after, .adjective::after, .adposition::after,
+  .adverb::after, .auxiliary::after, .conjunction::after, .coord_conjunction::after,
+  .determiner::after, .interjection::after, .noun::after, .numeral::after,
+  .particle::after, .pronoun::after, .proper_noun::after, .punctuation::after,
+  .subord_conjunction::after, .symbol::after, .verb::after, .other::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.8); /* Slightly darker */
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.85em; /* Slightly larger */
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s, visibility 0.2s;
+    z-index: 10;
+    margin-bottom: 5px;
+  }
+  
+  .metaphor:hover::after, .simile:hover::after, .adjective:hover::after,
+  .adposition:hover::after, .adverb:hover::after, .auxiliary:hover::after,
+  .conjunction:hover::after, .coord_conjunction:hover::after, .determiner:hover::after,
+  .interjection:hover::after, .noun:hover::after, .numeral:hover::after,
+  .particle:hover::after, .pronoun:hover::after, .proper_noun:hover::after,
+  .punctuation:hover::after, .subord_conjunction:hover::after, .symbol:hover::after,
+  .verb:hover::after, .other:hover::after {
+    opacity: 1;
+    visibility: visible;
+  }
+  .adjective:hover::after,
+  .adverb:hover::after {
+    opacity: 1;
+    visibility: visible;
+  }
+  .metaphor {
+    background-color: #f9e79f; /* Light yellow */
+    padding: 0.1em 0.2em;
+    border-radius: 3px;
+    font-weight: bold;
+    cursor: help; /* Indicate hoverable */
+    position: relative; /* For tooltip positioning */
+  }
+
+  /* Responsive adjustments */
+@media (max-width: 768px) {
+  .analysis-container {
+    flex-direction: column;
+  }
+  
+  .input-column, .results-column {
+    flex: 1 0 100%;
+  }
+  
+  .checkbox-grid {
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  }
+}
+  .simile {
+    background-color: #aed6f1; /* Light blue */
+    padding: 0.1em 0.2em;
+    border-radius: 3px;
+    font-style: italic;
+    cursor: help; /* Indicate hoverable */
+    position: relative; /* For tooltip positioning */
+  }
+  
+  /* Simple Tooltip (Optional) */
+  .metaphor::after,
+  .simile::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 100%; /* Position above the element */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.75);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.8em;
+    white-space: nowrap;
+    opacity: 0; /* Hidden by default */
+    visibility: hidden;
+    transition: opacity 0.2s, visibility 0.2s;
+    z-index: 10;
+    margin-bottom: 5px; /* Space between element and tooltip */
+  }
+  
+  .metaphor:hover::after,
+  .simile:hover::after {
+    opacity: 1;
+    visibility: visible;
+  }
+  
+/* Add a sample text button styles */
+.sample-button {
+  background-color: #f8fafc;
+  color: #3498db;
+  border: 1px solid #dde5ed;
+  font-size: 0.9rem;
+  padding: 8px 12px;
+}
+
+.sample-button:hover {
+  background-color: #edf2f7;
+}

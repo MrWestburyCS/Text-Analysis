@@ -1,0 +1,19 @@
+# Flask and dependencies
+Flask
+Jinja2
+Werkzeug
+itsdangerous
+click
+MarkupSafe
+
+# Gemini API
+google-generativeai
+pydantic
+python-dotenv # Good practice, though we use env vars on App Engine
+
+# spaCy and model
+spacy>=3.0.0,<4.0.0 # Specify a compatible range
+https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.7.1/en_core_web_sm-3.7.1.tar.gz#egg=en_core_web_sm # Direct link for model
+
+# Production Server (Required by App Engine)
+gunicorn
